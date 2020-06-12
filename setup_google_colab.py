@@ -5,9 +5,8 @@ import os
 
 def download_github_code(path):
     filename = path.rsplit("/")[-1]
-    os.system("wget https://raw.githubusercontent.com/hse-aml/natural-language-processing/master/{} -O {}".format(path, filename))
-
-
+    os.system("wget https://raw.githubusercontent.com/gouezec/natural-language-processing/master/{} -O {}".format(path, filename))
+    
 def setup_common():
     download_github_code("common/requirements_colab.txt")
     download_github_code("common/download_utils.py")
