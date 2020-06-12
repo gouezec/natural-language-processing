@@ -84,9 +84,14 @@ def main():
     # This is the point where you plug it into the Telegram bot. 
     # Do not forget to import all needed dependencies when you do so.
     
-    simple_manager = SimpleDialogueManager()
-    bot = BotHandler(token, simple_manager)
-    
+    # simple_manager = SimpleDialogueManager()
+    # bot = BotHandler(token, simple_manager)
+    from dialogue_manager import DialogueManager
+    from utils import RESOURCE_PATH
+
+    manager = DialogueManager(RESOURCE_PATH)
+    manager.create_chitchat_bot()
+    bot = BotHandler(token, manager)
     ###############################################################
 
     print("Ready to talk!")
@@ -100,8 +105,11 @@ def main():
                 if "text" in update["message"]:
                     text = update["message"]["text"]
                     if is_unicode(text):
-                        print("Update content: {}".format(update))
-                        bot.send_message(chat_id, bot.get_answer(update["message"]["text"]))
+                        try:
+                            print("Update content: {}".format(update))
+                            bot.send_message(chat_id, bot.get_answer(update["message"]["text"]))
+                        except UnicodeEncodeError:
+                            bot.send_message(chat_id, "Hmm, you are sending some weird characters to me...")
                     else:
                         bot.send_message(chat_id, "Hmm, you are sending some weird characters to me...")
             offset = max(offset, update['update_id'] + 1)
