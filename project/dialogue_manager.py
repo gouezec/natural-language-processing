@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.multiclass import OneVsRestClassifier
     
-from chatterbot import ChatBot
+from mychatbot import MyChatBot
 from utils import *
 
 
@@ -48,20 +48,7 @@ class DialogueManager(object):
         # Goal-oriented part:
         self.tag_classifier = unpickle_file(paths['TAG_CLASSIFIER'])
         self.thread_ranker = ThreadRanker(paths)
-
-    def create_chitchat_bot(self):
-        """Initializes self.chitchat_bot with some conversational model."""
-
-        # Hint: you might want to create and train chatterbot.ChatBot here.
-        # It could be done by creating ChatBot with the *trainer* parameter equals 
-        # "chatterbot.trainers.ChatterBotCorpusTrainer"
-        # and then calling *train* function with "chatterbot.corpus.english" param
-        
-        ########################
-        #### YOUR CODE HERE ####
-        #######################n  #
-        self.chitchat_bot = ChatBot('Stackoverflow bot', trainer="chatterbot.trainers.ChatterBotCorpusTrainer")
-        self.chitchat_bot.train("chatterbot.corpus.english")
+        self.chitchat_bot = MyChatBot(paths)
        
     def generate_answer(self, question):
         """Combines stackoverflow and chitchat parts using intent recognition."""

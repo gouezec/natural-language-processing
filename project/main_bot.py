@@ -90,7 +90,6 @@ def main():
     from utils import RESOURCE_PATH
 
     manager = DialogueManager(RESOURCE_PATH)
-    manager.create_chitchat_bot()
     bot = BotHandler(token, manager)
     ###############################################################
 
